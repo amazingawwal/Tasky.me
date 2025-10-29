@@ -1,96 +1,73 @@
-# Custom Webpage
+# React + TypeScript + Vite
 
-In this activity, you will customize the default Bootstrap 5 cards, content, and footer components to better reflect your site’s content.
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-## Instructions
+Currently, two official plugins are available:
 
-### Custom Cards
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-1. Find the `container-fluid <div>` and add the class `content`.
+## React Compiler
 
-2. Within the `container-fluid <div>`, but before the `row <div>`, add an `<h2>` tag.
-- Add the class `sectionHeading`.
-- Add the text `Shows Near You`.
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-3. Next, add the `showsNear` class to the `row <div>`.
+## Expanding the ESLint configuration
 
-4. Update the column sizing for each `cardContainer <div>` to `col-lg-4 col-md-4 col-sm-12`.
-- What do you think the size will be for each card on a small screen? What about a large screen?
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-5. Update each `<img>` tag to use pictures in the images folder.
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-6. Update the copy for each card and button to match the design, or get creative and add your own.
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-7. Add the following selectors and properties to style the cards section:
-  
-  ![Card Properties](./images/card-properties.png)
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-Now that you have finished the steps for this activity, your cards should be fully responsive with custom imagery.
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
-  ![Card Solution](./images/card-solution.png)
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-### Custom Webpage Content Section
-
-Next up, you will add to and style the content section of your website. Feel free to follow the design we specify below or add your own spin.
-
-#### Part 1: Update the HTML
-
-1. Add the content class to the `container-fluid <div>`.
-
-2. Next, add a title to this `<div>` by adding an `<h2>` tag with the text `Why we're better`.
-
-3. Give the `<h2>` tag the `sectionHeading` class.
-
-4. Add the `valueProp` class to the `row <div>`.
-
-5. Within the `row <div>`, add the `imageContainer` class to the `<div>` that contains an image.
-
-> Note that the design has two more rows in this section. Duplicate the first row twice. Update the images and copy for each duplicated row.
-
-#### Part 2: Update the CSS
-
-1. Add the following CSS to style the `valueProp` and `sideAccent` classes:
-
-  ![valueProp and Accent Properties](./images/prop-accent-properties.png)
-
-
-2. Next, add the following to style the `imageContainer` class and images inside that element:
-
-  ![imageContainer Properties](./images/image-container-properties.png)
-
-3. Congrats! You should now have three rows of content on your template.
-
-  ![Content Solution](./images/content-solution.png)
-
-### Custom Webpage Footer
-
-In this activity, you will customize your site’s footer with a call to action (CTA).
-
-  ![Footer Solution](images/footer-solution.png)
-
-#### Part 1: Update the HTML
-
-1. Add the `emailContain` class to the `<footer>` tag.
-
-2. Next, add an `<h3>` tag within the `<form>` tag but above the `mb-3 <div>`.
-
-3. Type `Join Our Mailing List` within the `<h3>` tag.
-
-#### Part 2: Update the CSS
-
-1. Add the following selectors, properties, and values to spruce up the footer and the form contained within:
-
-  ![Footer Properties](images/footer-properties.png)
-
-- That’s it! Your design is complete! Refresh your browser to see all the changes you’ve made and how far your template has come.
-
-- You have completed your Bootstrap template. 
-
-- That’s it for our template; you now have a fully responsive Bootstrap 5 template ready for you to customize and use professionally.
-
-- Feel free to modify it further if you’d like. You could create a different style or, alternatively, add more content to your Bootstrap template (this could be more sections, redoing of some sections, etc.).
-
-Great work!
----
-
-© 2023 edX Boot Camps LLC. Confidential and Proprietary. All Rights Reserved.
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
