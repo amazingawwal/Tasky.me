@@ -109,12 +109,12 @@ const TaskForm = () => {
               </div>
               <div className="flex gap-3">
                 <Button
-                  variant="success"
+                  variant={task.completed?"success":"secondary"}
                   size="sm"
                   onClick={() => toggleTask(task.id)}
                   aria-label="Delete task"
                 >
-                  Mark as complete
+                  {task.completed?<p>Mark task as incomplete</p>:<p>Mark task as complete...</p>}
                 </Button>
                 <Button
                   variant="danger"
