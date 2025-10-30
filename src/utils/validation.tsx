@@ -1,24 +1,20 @@
-
 import { useState } from "react";
 
 export type ErrorData = {
   task?: string;
-
 };
-
 
 export default function useValidation() {
+  const [errors, setErrors] = useState<ErrorData>({});
 
-    const [errors, setErrors] = useState<ErrorData>({});
+  let inputErrors: ErrorData = {};
 
-    let inputErrors:ErrorData = {};
-    
-    function errorValidation (input:string){
-        if (!input) {
-        inputErrors.task = "Task title field is required";
+  function errorValidation(input: string) {
+    if (!input) {
+      inputErrors.task = "Task title field is required";
     }
-    setErrors(inputErrors); 
-    }
+    setErrors(inputErrors);
+  }
 
-    return {errors, errorValidation}
-};
+  return { errors, errorValidation };
+}

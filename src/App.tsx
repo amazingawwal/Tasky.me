@@ -1,16 +1,14 @@
-import TaskForm from './pages/TaskForm'
-import './App.css'
-import Header from './pages/header'
+import TaskForm from "./pages/TaskForm";
+import "./App.css";
+import Header from "./pages/header";
 
 function App() {
-
-
   return (
     <>
-      <Header/>
-      <TaskForm/>
+      <Header />
+      <TaskForm />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
