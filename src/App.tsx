@@ -1,4 +1,4 @@
-import TaskManager from './pages/home'
+import TaskForm from './pages/TaskForm'
 import './App.css'
 
 function App() {
@@ -6,7 +6,7 @@ function App() {
 
   return (
     <>
-      <TaskManager/>
+      <TaskForm/>
     </>
   )
 }

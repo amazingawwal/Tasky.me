@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import Button from '../components/button';
-
-
-[{"id":1761747423343,"text":"Walk my dog","completed":true,"createdAt":"2025-10-29T14:17:03.343Z"}]
+import useValidation from '../utils/validation';
 
 export type TaskType = {
     id: number
@@ -59,22 +57,32 @@ const useLocalStorageTasks = () => {
 
 
 
-const TaskManager = () => {
+const TaskForm = () => {
   const { tasks, addTask, toggleTask, deleteTask } = useLocalStorageTasks();
+  const {errors, errorValidation} = useValidation();
   const [newTaskText, setNewTaskText] = useState('');
   const [filter, setFilter] = useState('all');
 
-  // Filter tasks based on selected filter
+ 
   const filteredTasks = tasks.filter((task:TaskType) => {
     if (filter === 'active') return !task.completed;
     if (filter === 'completed') return task.completed;
-    return true; // 'all' filter
+    return true; 
   });
 
-  // Handle form submission
-  const handleSubmit = (e:any) => {
+
+  const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
     addTask(newTaskText);
+    console.log('.....', newTaskText);
+    errorValidation(newTaskText)
+    if (!errors.task) {
+      console.log("Form is valid!");
+    }
+    else{
+      console.log("Form is invalid!");
+    }
+
     setNewTaskText('');
   };
 
@@ -90,15 +98,22 @@ const TaskManager = () => {
             value={newTaskText}
             onChange={(e) => setNewTaskText(e.target.value)}
             placeholder="Add a new task..."
-            className="flex-grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
+            className="grow px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600"
           />
           <Button type="submit" variant="primary">
             Add Task
           </Button>
         </div>
+        <div>error:{errors.task}</div>
+        {errors.task && (
+            <div className="error-message">
+              <span className="error-icon">⚠️</span>
+              {errors.task}
+            </div>
+          )}
       </form>
 
-      {/* Filter buttons */}
+  
       <div className="flex gap-2 mb-4">
         <Button
           variant={filter === 'all' ? 'primary' : 'secondary'}
@@ -123,7 +138,7 @@ const TaskManager = () => {
         </Button>
       </div>
 
-      {/* Task list */}
+    
       <ul className="space-y-2">
         {filteredTasks.length === 0 ? (
           <p className="text-gray-500 dark:text-gray-400 text-center py-4">
@@ -173,4 +188,4 @@ const TaskManager = () => {
   );
 };
 
-export default TaskManager; 
+export default TaskForm; 
