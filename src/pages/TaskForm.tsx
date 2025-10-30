@@ -74,15 +74,7 @@ const TaskForm = () => {
   const handleSubmit = (e:React.FormEvent) => {
     e.preventDefault();
     addTask(newTaskText);
-    console.log('.....', newTaskText);
     errorValidation(newTaskText)
-    if (!errors.task) {
-      console.log("Form is valid!");
-    }
-    else{
-      console.log("Form is invalid!");
-    }
-
     setNewTaskText('');
   };
 
@@ -104,9 +96,9 @@ const TaskForm = () => {
             Add Task
           </Button>
         </div>
-        <div>error:{errors.task}</div>
+        
         {errors.task && (
-            <div className="error-message">
+            <div className="text-red-500 ">
               <span className="error-icon">⚠️</span>
               {errors.task}
             </div>
@@ -165,6 +157,15 @@ const TaskForm = () => {
                   {task.text}
                 </span>
               </div>
+              <div className='flex gap-3'>
+              <Button
+                variant="success"
+                size="sm"
+                onClick={() => toggleTask(task.id)}
+                aria-label="Delete task"
+              >
+                Mark as complete
+              </Button>
               <Button
                 variant="danger"
                 size="sm"
@@ -173,6 +174,7 @@ const TaskForm = () => {
               >
                 Delete
               </Button>
+              </div>
             </li>
           ))
         )}

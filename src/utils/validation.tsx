@@ -16,9 +16,8 @@ export default function useValidation() {
     function errorValidation (input:string){
         if (!input) {
         inputErrors.task = "Task title field is required";
-        return;
-        }
-        setErrors(inputErrors); 
+    }
+    setErrors(inputErrors); 
     }
 
     return {errors, errorValidation}
