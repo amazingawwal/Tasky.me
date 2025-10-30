@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Button from '../components/button';
 import useValidation from '../utils/validation';
+import useLocalStorageTasks from '../utils/localStorage';
 
 export type TaskType = {
     id: number
@@ -8,51 +9,6 @@ export type TaskType = {
     completed: boolean
     createdAt: Date
 }
-
-
-const useLocalStorageTasks = () => {
-  const [tasks, setTasks] = useState(() => {
-    const savedTasks = localStorage.getItem('tasks');
-    return savedTasks ? JSON.parse(savedTasks) : [];
-  });
-
-  
-  useEffect(() => {
-    localStorage.setItem('tasks', JSON.stringify(tasks));
-  }, [tasks]);
-
-  
-  const addTask = (text:string) => {
-    if (text.trim()) {
-      setTasks([
-        ...tasks,
-        {
-          id: Date.now(),
-          text,
-          completed: false,
-          createdAt: new Date().toISOString(),
-        },
-      ]);
-    }
-  };
-
-  
-  
-  const toggleTask = (id:number) => {
-    setTasks(
-      tasks.map((task:TaskType) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
-    );
-  };
-
-  
-  const deleteTask = (id:number) => {
-    setTasks(tasks.filter((task:TaskType) => task.id !== id));
-  };
-
-  return { tasks, addTask, toggleTask, deleteTask };
-};
 
 
 

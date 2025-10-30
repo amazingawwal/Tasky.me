@@ -50,6 +50,7 @@ const Button = ({
     danger: 'bg-red-600 hover:bg-red-700 text-white focus:ring-red-500',
     success: 'bg-green-600 hover:bg-green-700 text-white focus:ring-green-500',
     warning: 'bg-yellow-500 hover:bg-yellow-600 text-white focus:ring-yellow-500',
+    logo: 'bg-transparent text-blue-600 hover:text-blue-700 font-bold text-xl',
  };
   
 
